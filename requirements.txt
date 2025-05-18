@@ -1,0 +1,6 @@
+Django
+djangorestframework
+markdown
+psycopg2-binary
+django-filter
+gunicorn
