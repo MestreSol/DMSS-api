@@ -1,15 +1,17 @@
 from api_dmss.core import models
 
 
-class RegionModel(models.Model):
+class ManufacturerModel(models.Model):
     id = models.UUIDField(primary_key=True, default=models.uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    population = models.IntegerField()
-    
+    logoUrl = models.URLField()
+    country = models.CharField(max_length=255)
+
     # ForeignKeys
-    localCurrency = models.ForeignKey(
-        "persistence.CurrencyModel",
+    category = models.ForeignKey(
+        "persistence.CategoryModel",
         null=True, blank=True,
         on_delete=models.SET_NULL
     )
+    
