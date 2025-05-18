@@ -11,8 +11,8 @@ from usecases.users.create_user import CreateUser
 from usecases.users.assign_role import AssignRole
 from usecases.roles.create_role import CreateRole
 
-from adapters.persistence.user_repo_django import DjangoORMUserRepository
-from adapters.persistence.role_repo_django import DjangoORMRoleRepository
+from adapters.persistence.django.user_repo_django import DjangoORMUserRepository
+from adapters.persistence.django.role_repo_django import DjangoORMRoleRepository
 from adapters.rest.serializers import (
     CreateUserSerializer,
     CreateRoleSerializer,
