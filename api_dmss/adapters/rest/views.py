@@ -1,3 +1,5 @@
+from django.db import IntegrityError
+from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -23,7 +25,13 @@ class CreateUserView(APIView):
         ser = CreateUserSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
         usecase = CreateUser(repo=DjangoORMUserRepository())
-        user = usecase.execute(**ser.validated_data)
+        try:
+            user = usecase.execute(**ser.validated_data)
+        except IntegrityError:
+            return Response(
+                {"detail": "Username or email already exists."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         return Response({
             "id": str(user.id),
             "username": user.username,
@@ -31,6 +39,7 @@ class CreateUserView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 class CreateRoleView(APIView):
+    @swagger_auto_schema(request_body=CreateRoleSerializer)
     def post(self, request):
         ser = CreateRoleSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
@@ -42,6 +51,7 @@ class CreateRoleView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 class AssignRoleView(APIView):
+    @swagger_auto_schema(request_body=AssignRoleSerializer)
     def post(self, request):
         ser = AssignRoleSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
