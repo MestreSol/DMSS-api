@@ -6,6 +6,7 @@ class User:
         self,
         username: str,
         email: str,
+        password: str,
         role_id: Optional[UUID] = None,
         user_id: Optional[UUID] = None
     ):
@@ -13,3 +14,4 @@ class User:
         self.username = username
         self.email = email
         self.role_id = role_id
+        self.password = password

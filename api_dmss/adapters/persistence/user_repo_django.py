@@ -1,6 +1,6 @@
 from domain.entities.user import User
 from domain.repositories.user_repository import UserRepository
-from adapters.persistence.user_model import UserModel
+from api_dmss.adapters.persistence.models.user_model import UserModel
 
 class DjangoORMUserRepository(UserRepository):
     def save(self, user: User) -> None:
@@ -9,6 +9,7 @@ class DjangoORMUserRepository(UserRepository):
             defaults={
                 "username": user.username,
                 "email": user.email,
+                "password": user.password,
                 "role_id": user.role_id,
             }
         )

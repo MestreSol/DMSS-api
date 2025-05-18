@@ -2,6 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from drf_yasg.utils import swagger_auto_schema
+
+
 from usecases.users.create_user import CreateUser
 from usecases.users.assign_role import AssignRole
 from usecases.roles.create_role import CreateRole
@@ -15,6 +18,7 @@ from adapters.rest.serializers import (
 )
 
 class CreateUserView(APIView):
+    @swagger_auto_schema(request_body=CreateUserSerializer)
     def post(self, request):
         ser = CreateUserSerializer(data=request.data)
         ser.is_valid(raise_exception=True)

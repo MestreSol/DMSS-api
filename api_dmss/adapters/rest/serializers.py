@@ -3,6 +3,7 @@ from rest_framework import serializers
 class CreateUserSerializer(serializers.Serializer):
     username = serializers.CharField()
     email = serializers.EmailField()
+    password = serializers.CharField()
 
 class CreateRoleSerializer(serializers.Serializer):
     name = serializers.CharField()

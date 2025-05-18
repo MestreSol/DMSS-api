@@ -1,6 +1,6 @@
 from domain.entities.role import Role
 from domain.repositories.role_repository import RoleRepository
-from adapters.persistence.role_model import RoleModel
+from api_dmss.adapters.persistence.models.role_model import RoleModel
 
 class DjangoORMRoleRepository(RoleRepository):
     def save(self, role: Role) -> None:
