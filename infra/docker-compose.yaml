@@ -1,19 +1,27 @@
- version: '3'
- services:
-   db:
-     image: postgres:15
-     environment:
-       POSTGRES_DB: mydb
-       POSTGRES_USER: myuser
-       POSTGRES_PASSWORD: mypassword
-     ports:
-       - "5432:5432"
-   web:
-     build: .
-     command: gunicorn myproject.wsgi:application --bind 0.0.0.0:8000
-     volumes:
-       - .:/code
-     ports:
-       - "8000:8000"
-     depends_on:
-       - db
+version: '3'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: gunicorn api_dmss.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      # configurando as mesmas variáveis para o Django ler
+      DB_NAME: mydb
+      DB_USER: myuser
+      DB_PASS: mypassword
+      DB_HOST: db
+      DB_PORT: 5432
