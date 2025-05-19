@@ -9,6 +9,7 @@ class MarketModel(models.Model):
     confortLevel = models.IntegerField()
     expereince = models.DecimalField(max_digits=10, decimal_places=2)
     reputation = models.DecimalField(max_digits=10, decimal_places=2)
+    
     user = models.OneToOneField(
         "persistence.UserModel",
         null=True, blank=True,
